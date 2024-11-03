@@ -1,7 +1,19 @@
 // Function to fetch a new quote from the Ninja API
-async function newQuote() {
+async function newQuote(type = "general") {
+    let url = 'https://api.api-ninjas.com/v1/quotes';
+    
+    // Modify URL based on the type of quote requested
+    if (type === "general") {
+        url = 'https://api.api-ninjas.com/v1/quotes';
+    } else if (type === "inspirational") {
+        url = 'https://api.api-ninjas.com/v1/quotes?category=inspirational';
+    } else {
+        alert("This feature is not available yet.");
+        return;
+    }
+
     try {
-        const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
+        const response = await fetch(url, {
             headers: {
                 'X-Api-Key': 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'
             }
@@ -50,10 +62,18 @@ window.onload = () => {
     }
 };
 
-// Event listeners for icons to generate a new quote when clicked
-document.querySelectorAll('.icon').forEach(icon => {
-    icon.addEventListener('click', newQuote);
+// Assign click behavior to icons
+document.querySelectorAll('.icon').forEach((icon, index) => {
+    icon.addEventListener('click', () => {
+        if (index === 0) {
+            newQuote("general"); // General quote for the first icon
+        } else if (index === 1) {
+            newQuote("inspirational"); // Inspirational quote for the second icon
+        } else {
+            alert("This feature is not available yet."); // Alert for other icons
+        }
+    });
 });
 
 // Adding event listener for the "New Quote" button
-document.querySelector('button[onclick="newQuote()"]').addEventListener('click', newQuote);
+document.querySelector('button[onclick="newQuote()"]').addEventListener('click', () => newQuote("general"));
