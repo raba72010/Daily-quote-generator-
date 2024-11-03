@@ -12,7 +12,10 @@ body {
     transition: background 0.5s ease;
 }
 
-/* Dark Mode */
+body.rtl {
+    direction: rtl;
+}
+
 body.dark-mode {
     background: linear-gradient(to bottom, #1c1c1c, #333);
     color: #ddd;
@@ -155,4 +158,11 @@ body.dark-mode .footer {
 /* Hover Effect on Quote Box */
 .quote-box:hover {
     transform: translateY(-5px);
+}
+
+/* RTL Support */
+body.rtl .header,
+body.rtl .quote-box,
+body.rtl .footer {
+    text-align: right;
 }
