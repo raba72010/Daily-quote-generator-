@@ -53,6 +53,11 @@ function renderEmojis() {
 // Call this function to render emojis on page load
 renderEmojis();
 
+// Event listener for the "New Quote" button to fetch a default quote
+document.getElementById('new-quote-btn').addEventListener('click', () => {
+    fetchQuoteByCategory('inspirational');
+});
+
 // Function to toggle dark mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
