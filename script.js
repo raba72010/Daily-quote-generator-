@@ -19,12 +19,36 @@ async function fetchQuote() {
         const quote = data[0].quote;
         const author = data[0].author || 'Unknown';
         document.getElementById('quote').innerText = `${quote} – ${author}`;
+        addEmojiToQuote(quote); // Add emojis to the quote
     } catch (error) {
         console.error('Error fetching quote from API Ninjas:', error);
         document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
         // Fallback to the backup API
         fetchQuoteBackup();
     }
+}
+
+// Function to add emojis based on keywords in the quote
+function addEmojiToQuote(quote) {
+    let emoji = '';
+    if (quote.includes('hope') || quote.includes('dream')) {
+        emoji = '✨';
+    } else if (quote.includes('success') || quote.includes('win')) {
+        emoji = '🏆';
+    } else if (quote.includes('life') || quote.includes('journey')) {
+        emoji = '🌱';
+    } else if (quote.includes('love') || quote.includes('heart')) {
+        emoji = '❤️';
+    } else if (quote.includes('strength') || quote.includes('courage')) {
+        emoji = '💪';
+    } else if (quote.includes('happy') || quote.includes('smile')) {
+        emoji = '😊';
+    } else {
+        emoji = '💡'; // Default emoji for general inspiration
+    }
+
+    // Display the quote with the emoji
+    document.getElementById('quote').innerText += ` ${emoji}`;
 }
 
 // Alternative function to fetch quotes from a backup API
@@ -40,6 +64,7 @@ async function fetchQuoteBackup() {
         const author = data[0].a;
         console.log('Backup quote fetched:', data);
         document.getElementById('quote').innerText = `${quote} – ${author}`;
+        addEmojiToQuote(quote); // Add emojis to the backup quote
     } catch (error) {
         console.error('Error fetching quote from backup API:', error);
         document.getElementById('quote').innerText = 'Failed to fetch a new quote from backup source. Please try again later.';
@@ -57,7 +82,7 @@ function shareQuote() {
     const quoteElement = document.getElementById('quote');
     const quoteText = quoteElement.innerText;
 
-    if (quoteText === "Click the button to generate a motivational quote!" || quoteText === "اضغط على الزر لعرض اقتباس تحفيزي!") {
+    if (quoteText === "Click the button to generate a motivational quote!") {
         alert("Please generate a quote before sharing.");
         return;
     }
@@ -86,12 +111,11 @@ function toggleDarkMode() {
     console.log('Dark mode toggled');
 }
 
-// Attach event listeners to buttons
+// Attach event listeners to other buttons
 document.getElementById('share-quote-btn').addEventListener('click', () => {
     console.log('Share Quote button clicked');
     shareQuote();
 });
-
 
 document.getElementById('darkModeToggle').addEventListener('click', () => {
     console.log('Dark Mode button clicked');
