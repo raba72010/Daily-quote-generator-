@@ -1,4 +1,8 @@
 /* General Styling */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -8,16 +12,17 @@ body {
 /* Header and Menu Styling */
 header {
     background-color: #333;
-    padding: 10px;
+    padding: 15px;
     color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 28px;
 }
 
 nav ul {
@@ -25,7 +30,7 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 15px;
+    gap: 20px;
 }
 
 nav ul li {
@@ -35,6 +40,7 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     color: #fff;
+    font-size: 16px;
     padding: 5px 10px;
     transition: background-color 0.3s;
 }
@@ -42,6 +48,18 @@ nav ul li a {
 nav ul li a:hover {
     background-color: #555;
     border-radius: 5px;
+}
+
+/* Responsive Menu */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin-bottom: 10px;
+    }
 }
 
 /* Container Styling */
@@ -79,12 +97,14 @@ button:hover {
 
 /* Footer Styling */
 footer {
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
     text-align: center;
 }
 
-a {
+footer a {
     color: #ff7f50;
     text-decoration: none;
 }
