@@ -9,11 +9,11 @@ const quotes = [
 function generateQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const quoteElement = document.getElementById('quote');
-    quoteElement.style.opacity = 0; // Start with opacity 0 for fade-out
+    quoteElement.style.opacity = 0;
 
     setTimeout(() => {
         quoteElement.innerText = quotes[randomIndex];
-        quoteElement.style.opacity = 1; // Fade-in the new quote
+        quoteElement.style.opacity = 1;
     }, 300);
 }
 
