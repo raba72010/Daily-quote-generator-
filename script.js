@@ -1,16 +1,23 @@
-// Array of quotes for the app
-const quotes = [
-    "Too much good fortune can make you smug and unaware. Happiness should be like an oasis, the greener for the desert that surrounds it. – Rachel Field",
-    "The only way to achieve the impossible is to believe it is possible. – Charles Kingsleigh",
-    "You only live once, but if you do it right, once is enough. – Mae West",
-    "In the end, we will remember not the words of our enemies, but the silence of our friends. – Martin Luther King Jr.",
-    "Life is really simple, but we insist on making it complicated. – Confucius"
-];
+// Function to fetch a new quote from the Ninja API
+async function newQuote() {
+    try {
+        const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
+            headers: {
+                'X-Api-Key': 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'
+            }
+        });
 
-// Function to display a new random quote
-function newQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    document.getElementById('quote').innerText = quotes[randomIndex];
+        if (!response.ok) {
+            throw new Error('Failed to fetch the quote');
+        }
+
+        const data = await response.json();
+        // Assuming the API returns an array of quotes
+        document.getElementById('quote').innerText = data[0].quote + " – " + data[0].author;
+    } catch (error) {
+        console.error('Error fetching quote:', error);
+        document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
+    }
 }
 
 // Function to share the current quote
