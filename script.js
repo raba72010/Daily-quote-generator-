@@ -39,7 +39,6 @@ async function fetchQuoteByCategory(keyword) {
 function renderEmojis() {
     const emojiContainer = document.getElementById('emoji-container');
     const emojiCategories = {
-        '💪': 'courage', // Example: Using a known working category
         '😊': 'happiness',
         '✨': 'hope',
         '❤️': 'love'
@@ -62,4 +61,34 @@ renderEmojis();
 // Event listener for the "New Quote" button to fetch a default quote
 document.getElementById('new-quote-btn').addEventListener('click', () => {
     fetchQuoteByCategory('inspirational');
+});
+
+// Function to toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    console.log('Dark mode toggled');
+}
+
+// Attach event listener for dark mode button
+document.getElementById('darkModeToggle').addEventListener('click', () => {
+    console.log('Dark Mode button clicked');
+    toggleDarkMode();
+});
+
+// Share quote functionality
+document.getElementById('share-quote-btn').addEventListener('click', () => {
+    const quoteElement = document.getElementById('quote').innerText;
+    if (navigator.share) {
+        navigator.share({
+            title: 'Motivational Quote',
+            text: quoteElement,
+            url: window.location.href
+        }).then(() => {
+            console.log('Quote shared successfully');
+        }).catch((error) => {
+            console.error('Error sharing the quote:', error);
+        });
+    } else {
+        alert('Sharing is not supported on this browser.');
+    }
 });
