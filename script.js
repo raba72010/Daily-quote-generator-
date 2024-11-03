@@ -1,3 +1,21 @@
+// Function to fetch a quote by keyword
+async function fetchQuoteByKeyword(keyword) {
+    try {
+        const response = await fetch(`https://zenquotes.io/keywords/${keyword}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch the quote by keyword');
+        }
+
+        const data = await response.json();
+        document.getElementById('quote').innerText = data[0].q + " – " + data[0].a;
+    } catch (error) {
+        console.error('Error fetching quote by keyword:', error);
+        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please try again later.';
+    }
+}
+
+// Other existing functions like newQuote, shareQuote, toggleDarkMode, etc.
+
 // Function to fetch a new quote from the Ninja API
 async function newQuote() {
     try {
