@@ -86,30 +86,12 @@ function toggleDarkMode() {
     console.log('Dark mode toggled');
 }
 
-// Function to toggle between English and Arabic
-function toggleLanguage() {
-    document.body.classList.toggle('rtl');
-    const isArabic = document.body.classList.contains('rtl');
-
-    document.getElementById('header-title').innerText = isArabic ? "مولد الاقتباسات" : "Quote Generator";
-    document.getElementById('new-quote-btn').innerText = isArabic ? "اقتباس جديد" : "New Quote";
-    document.getElementById('share-quote-btn').innerText = isArabic ? "مشاركة الاقتباس" : "Share Quote";
-    document.getElementById('toggle-language').innerText = isArabic ? "English" : "عربي";
-    document.getElementById('footer-text').innerText = isArabic ? "صنع بواسطة رباح مداني" : "Created by Rabah Madani";
-
-    console.log('Language toggled to', isArabic ? 'Arabic' : 'English');
-}
-
 // Attach event listeners to buttons
 document.getElementById('share-quote-btn').addEventListener('click', () => {
     console.log('Share Quote button clicked');
     shareQuote();
 });
 
-document.getElementById('toggle-language').addEventListener('click', () => {
-    console.log('Toggle Language button clicked');
-    toggleLanguage();
-});
 
 document.getElementById('darkModeToggle').addEventListener('click', () => {
     console.log('Dark Mode button clicked');
