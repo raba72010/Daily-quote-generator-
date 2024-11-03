@@ -150,4 +150,19 @@ body.dark-mode .share {
 }
 
 body.dark-mode .footer {
-    background-color: #2b2b2
+    background-color: #2b2b2b;
+    color: #bbb;
+    border-top: 1px solid #555;
+}
+
+/* Hover Effect on Quote Box */
+.quote-box:hover {
+    transform: translateY(-5px);
+}
+
+/* RTL Support */
+body.rtl .header,
+body.rtl .quote-box,
+body.rtl .footer {
+    text-align: right;
+}
