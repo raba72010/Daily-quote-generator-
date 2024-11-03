@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600&display=swap');
 
 /* General Body Styling */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #d0f0f7, #80cdea); /* Light mode gradient */
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #e0e5ec, #b3c0d1); /* Light iOS-inspired gradient */
     color: #333;
     display: flex;
     justify-content: center;
@@ -11,105 +11,111 @@ body {
     height: 100vh;
     margin: 0;
     transition: background-color 0.3s, color 0.3s, background 0.3s;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Dark Mode Styling */
-.dark-mode {
-    background: linear-gradient(135deg, #1b1b1b, #3a3a3a); /* Dark mode gradient */
-    color: #e0e0e0;
-}
-
-.dark-mode .container {
-    background-color: #3b3b3b;
-    color: #e0e0e0;
-}
-
-.dark-mode #quote-box {
-    background-color: #505050;
-    color: #e0e0e0; /* Adjusted for better contrast */
-}
-
-.dark-mode #quote {
-    color: #d0d0d0; /* Ensure better readability */
-}
-
-.dark-mode button {
-    background-color: #5c6bc0;
-    color: #ffffff;
-}
-
-.dark-mode button:hover {
-    background-color: #3949ab;
-}
-
-/* Container Styling */
+/* Container Styling with iOS Glass Effect */
 .container {
     text-align: center;
     width: 90%;
     max-width: 600px;
-    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px); /* iOS frosted glass effect */
+    border-radius: 25px; /* More rounded corners */
     padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background-color 0.3s, backdrop-filter 0.3s;
 }
 
 /* Icon Bar Styling */
 .emoji-bar {
-    font-size: 30px;
+    font-size: 34px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 .icon {
     font-size: 40px; /* Adjust size as needed */
-    margin: 0 15px;
-    color: #ffc107; /* Adjust color as needed */
+    color: #ffcc00; /* Typical iOS icon color */
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, color 0.2s;
 }
 
 .icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
+    color: #ffa500;
 }
 
 /* Quote Box Styling */
 #quote-box {
-    background-color: #f9f9f9;
-    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
     padding: 20px;
     margin-bottom: 25px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: background-color 0.3s, color 0.3s;
 }
 
 #quote {
-    font-size: 20px;
+    font-size: 18px;
     font-style: italic;
     line-height: 1.6;
-    color: #444; /* Lighter color for better visibility */
+    color: #333; /* Neutral color */
 }
 
-/* Button Styling */
+/* Button Styling with iOS Appearance */
 .buttons button {
-    margin: 8px;
+    margin: 10px;
     padding: 12px 25px;
     font-size: 16px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px; /* Rounded buttons */
     cursor: pointer;
-    background-color: #00acc1;
+    background-color: #007aff; /* iOS blue button color */
     color: #ffffff;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, transform 0.2s;
 }
 
 .buttons button:hover {
-    background-color: #00838f;
-    transform: translateY(-3px);
+    background-color: #005bb5; /* Darker blue for hover */
+    transform: translateY(-2px);
 }
 
 .buttons button:active {
     transform: translateY(1px);
+}
+
+/* Dark Mode Styling */
+.dark-mode {
+    background: linear-gradient(135deg, #1e1e1e, #2e2e2e); /* Dark iOS-inspired gradient */
+    color: #dcdcdc;
+}
+
+.dark-mode .container {
+    background: rgba(50, 50, 50, 0.8);
+    backdrop-filter: blur(15px);
+    color: #dcdcdc;
+}
+
+.dark-mode #quote-box {
+    background-color: rgba(70, 70, 70, 0.9);
+    color: #f0f0f0;
+}
+
+.dark-mode #quote {
+    color: #e0e0e0;
+}
+
+.dark-mode button {
+    background-color: #5e5ce6; /* iOS-inspired dark mode button color */
+    color: #ffffff;
+}
+
+.dark-mode button:hover {
+    background-color: #4b4ac0; /* Darker hover color for dark mode */
 }
 
 /* Footer Styling */
