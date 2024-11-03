@@ -33,7 +33,7 @@ async function fetchQuoteByCategory(keyword) {
 function renderEmojis() {
     const emojiContainer = document.getElementById('emoji-container');
     const emojiCategories = {
-        '💪': 'courage',
+        '💪': 'sucess',
         '😊': 'happiness',
         '✨': 'hope',
         '❤️': 'love'
