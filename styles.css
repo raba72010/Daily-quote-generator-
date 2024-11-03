@@ -1,19 +1,10 @@
-body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: linear-gradient(to bottom, #f0f8ff, #87ceeb);
-}
-
 .container {
     text-align: center;
     padding: 20px;
     border-radius: 10px;
     background-color: #ffffff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: inline-block; /* Ensures the container only takes the space needed */
 }
 
 button {
@@ -24,6 +15,9 @@ button {
     border-radius: 5px;
     margin-top: 10px;
     transition: background-color 0.3s, transform 0.3s;
+    display: block; /* Makes buttons stack vertically */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button:hover {
@@ -34,6 +28,7 @@ button:hover {
 footer {
     margin-top: 20px;
     font-size: 14px;
+    text-align: center;
 }
 
 a {
