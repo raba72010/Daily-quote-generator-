@@ -6,25 +6,32 @@ const quotes = [
     "Keep your face always toward the sunshine—and shadows will fall behind you. – Walt Whitman"
 ];
 
+const arabicQuotes = [
+    "أفضل وسيلة للتنبؤ بالمستقبل هي اختراعه. – آلان كاي",
+    "افعل ما تستطيع، بما تملك، حيث أنت. – ثيودور روزفلت",
+    "النجاح ليس نهائيًا، والفشل ليس قاتلاً: الشجاعة على الاستمرار هي التي تهم. – ونستون تشرشل",
+    "آمن بأنك تستطيع، وستكون قد قطعت نصف الطريق. – ثيودور روزفلت",
+    "اجعل وجهك دائمًا باتجاه الشمس، وستقع الظلال خلفك. – والت ويتمان"
+];
+
 function generateQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const isArabic = document.body.classList.contains('rtl');
+    const randomIndex = Math.floor(Math.random() * (isArabic ? arabicQuotes.length : quotes.length));
     const quoteElement = document.getElementById('quote');
+    const selectedQuote = isArabic ? arabicQuotes[randomIndex] : quotes[randomIndex];
+    
     quoteElement.style.opacity = 0;
 
     setTimeout(() => {
-        quoteElement.innerText = quotes[randomIndex];
+        quoteElement.innerText = selectedQuote;
         quoteElement.style.opacity = 1;
     }, 300);
 }
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-}
 
-// Add this to an event listener if you want a button for toggling
-document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+document.getElementById('toggle-language').addEventListener('click', () => {
+    document.body.classList.toggle('rtl');
+    const isArabic = document.body.classList.contains('rtl');
 
-function shareQuote() {
-    const quoteText = document.getElementById('quote').innerText;
-    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteText)}`;
-    window.open(shareUrl, '_blank');
-}
+    document.getElementById('header-title').innerText = isArabic ? "مولد الاقتباسات" : "Quote Generator";
+    document.getElementById('new-quote-btn').innerText = isArabic ? "اقتباس جديد" : "New Quote";
+    document.getElementById('share-quote-btn').
