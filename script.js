@@ -7,7 +7,12 @@ async function newQuote() {
         }
 
         const data = await response.json();
-        document.getElementById('quote').innerText = data[0].q + " – " + data[0].a;
+        const quoteText = data[0].q + " – " + data[0].a;
+        document.getElementById('quote').innerText = quoteText;
+        document.getElementById('quote-box').classList.add('fade-in');
+        setTimeout(() => {
+            document.getElementById('quote-box').classList.remove('fade-in');
+        }, 1000);
     } catch (error) {
         console.error('Error fetching new quote:', error);
         document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
@@ -27,10 +32,19 @@ function shareQuote() {
     }
 }
 
+// Function to copy the current quote to the clipboard
+function copyQuote() {
+    const quote = document.getElementById('quote').innerText;
+    navigator.clipboard.writeText(quote).then(() => {
+        alert('Quote copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+    });
+}
+
 // Function to toggle dark mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
-    // Save dark mode preference in local storage
     if (document.body.classList.contains('dark-mode')) {
         localStorage.setItem('darkMode', 'enabled');
     } else {
