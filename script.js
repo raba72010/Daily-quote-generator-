@@ -8,16 +8,6 @@ const quotes = [
 
 function generateQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
-    document.getElementById('quote').innerText = quotes[randomIndex];
-}
-function shareQuote() {
-    const quoteText = document.getElementById('quote').innerText;
-    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteText)}`;
-    window.open(shareUrl, '_blank');
-}
-
-function generateQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
     const quoteElement = document.getElementById('quote');
     quoteElement.style.opacity = 0; // Start with opacity 0 for fade-out
 
@@ -25,4 +15,10 @@ function generateQuote() {
         quoteElement.innerText = quotes[randomIndex];
         quoteElement.style.opacity = 1; // Fade-in the new quote
     }, 300);
+}
+
+function shareQuote() {
+    const quoteText = document.getElementById('quote').innerText;
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteText)}`;
+    window.open(shareUrl, '_blank');
 }
