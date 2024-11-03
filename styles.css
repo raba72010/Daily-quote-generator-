@@ -1,3 +1,4 @@
+/* Removed all styles related to the icons */
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600&display=swap');
 
 /* General Body Styling */
@@ -14,7 +15,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Container Styling with iOS Glass Effect */
+/* Container Styling */
 .container {
     text-align: center;
     width: 90%;
@@ -25,27 +26,6 @@ body {
     padding: 25px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     transition: background-color 0.3s, backdrop-filter 0.3s;
-}
-
-/* Icon Bar Styling */
-.emoji-bar {
-    font-size: 34px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.icon {
-    font-size: 40px; /* Adjust size as needed */
-    color: #ffcc00; /* Typical iOS icon color */
-    cursor: pointer;
-    transition: transform 0.2s, color 0.2s;
-}
-
-.icon:hover {
-    transform: scale(1.15);
-    color: #ffa500;
 }
 
 /* Quote Box Styling */
@@ -65,7 +45,7 @@ body {
     color: #333; /* Neutral color */
 }
 
-/* Button Styling with iOS Appearance */
+/* Button Styling */
 .buttons button {
     margin: 10px;
     padding: 12px 25px;
