@@ -31,7 +31,7 @@ async function fetchQuoteByCategory(keyword, emoji) {
         }
     } catch (error) {
         console.error(`Error fetching quotes for category "${keyword}":`, error);
-        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please try again later.';
+        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please check your internet connection and try again later.';
     }
 }
 
