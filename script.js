@@ -1,66 +1,62 @@
-const API_NINJAS_URL = 'https://api.api-ninjas.com/v1/quotes';
-const API_NINJAS_KEY = 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'; // Your API key
-
-// Function to fetch quotes by keyword for a specific category
-async function fetchQuoteByCategory(keyword) {
+// Function to fetch a quote from ZenQuotes API
+async function fetchQuoteFromZenQuotes(emoji) {
     try {
-        console.log(`Fetching quotes related to "${keyword}"...`);
-        const response = await fetch(`${API_NINJAS_URL}?category=${encodeURIComponent(keyword)}`, {
-            headers: {
-                'X-Api-Key': API_NINJAS_KEY
-            }
-        });
-        
-        // Check if the response is ok
+        console.log(`Fetching quote related to the selected category...`);
+        const response = await fetch('https://zenquotes.io/api/random');
+
+        console.log(`Response Status Code: ${response.status}`);
         if (!response.ok) {
-            console.error(`HTTP error! Status: ${response.status}`);
             document.getElementById('quote').innerText = `Error ${response.status}: ${response.statusText}`;
+            console.error(`HTTP error! Status: ${response.status}`);
             return;
         }
 
         const data = await response.json();
-        console.log('API response:', data);
+        console.log('API Response Data:', data);
 
         if (data.length > 0) {
-            const quote = data[0].quote;
-            const author = data[0].author || 'Unknown';
+            const quote = data[0].q; // Quote text
+            const author = data[0].a || 'Unknown'; // Author
             document.getElementById('quote').innerText = `${quote} – ${author}`;
+            document.getElementById('selected-emoji').innerText = `Selected: ${emoji}`;
         } else {
-            console.warn('No quotes returned for this category.');
-            document.getElementById('quote').innerText = 'No quotes available for this category.';
+            console.warn('No data returned from ZenQuotes API.');
+            document.getElementById('quote').innerText = 'No quotes available at the moment.';
         }
     } catch (error) {
-        console.error(`Error fetching quotes for category "${keyword}":`, error);
-        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please try again later.';
+        console.error('An error occurred while fetching the quote:', error);
+        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please check your connection and try again later.';
     }
 }
 
-// Function to render clickable emojis for different categories
+// Function to render emojis and set up event listeners for quote fetching
 function renderEmojis() {
     const emojiContainer = document.getElementById('emoji-container');
     const emojiCategories = {
-        '😊': 'happiness',
-        '✨': 'hope',
+        '😊': 'general',
+        '✨': 'inspirational',
         '❤️': 'love'
     };
 
-    for (const [emoji, keyword] of Object.entries(emojiCategories)) {
+    for (const [emoji, category] of Object.entries(emojiCategories)) {
         const emojiButton = document.createElement('button');
         emojiButton.className = 'emoji-button';
         emojiButton.innerText = emoji;
         emojiButton.addEventListener('click', () => {
-            fetchQuoteByCategory(keyword);
+            document.querySelectorAll('.emoji-button').forEach(btn => btn.classList.remove('active'));
+            emojiButton.classList.add('active');
+            fetchQuoteFromZenQuotes(emoji);
         });
         emojiContainer.appendChild(emojiButton);
     }
 }
 
-// Call this function to render emojis on page load
+// Call the function to render emojis on page load
 renderEmojis();
 
-// Event listener for the "New Quote" button to fetch a default quote
+// Event listener for the "New Quote" button to fetch a new random quote
 document.getElementById('new-quote-btn').addEventListener('click', () => {
-    fetchQuoteByCategory('inspirational');
+    fetchQuoteFromZenQuotes('New Quote');
 });
 
 // Function to toggle dark mode
@@ -71,7 +67,6 @@ function toggleDarkMode() {
 
 // Attach event listener for dark mode button
 document.getElementById('darkModeToggle').addEventListener('click', () => {
-    console.log('Dark Mode button clicked');
     toggleDarkMode();
 });
 
