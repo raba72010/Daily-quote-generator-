@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+/* General Body Styling */
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #d0f0f7, #80cdea);
@@ -12,6 +13,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Container Styling */
 .container {
     text-align: center;
     width: 90%;
@@ -23,11 +25,25 @@ body {
     transition: background-color 0.3s;
 }
 
+/* Icon Bar Styling */
 .emoji-bar {
     font-size: 30px;
     margin-bottom: 20px;
 }
 
+.icon {
+    font-size: 40px; /* Adjust size as needed */
+    margin: 0 15px;
+    color: #ffc107; /* Adjust color as needed */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+/* Quote Box Styling */
 #quote-box {
     background-color: #f9f9f9;
     border-radius: 12px;
