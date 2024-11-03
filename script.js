@@ -12,7 +12,6 @@ async function newQuote() {
         }
 
         const data = await response.json();
-        // Assuming the API returns an array of quotes
         document.getElementById('quote').innerText = data[0].quote + " – " + data[0].author;
     } catch (error) {
         console.error('Error fetching quote:', error);
@@ -36,7 +35,20 @@ function shareQuote() {
 // Function to toggle dark mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
+    // Save dark mode preference in local storage
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        localStorage.removeItem('darkMode');
+    }
 }
+
+// Check local storage for dark mode preference
+window.onload = () => {
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+    }
+};
 
 // Event listeners for emojis to generate a new quote when clicked
 document.querySelectorAll('.emoji-bar span').forEach(emoji => {
