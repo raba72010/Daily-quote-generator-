@@ -26,9 +26,9 @@ function shareQuote() {
         navigator.share({
             title: 'Inspirational Quote',
             text: quote,
-        }).catch(() => alert("Sharing not supported on this browser."));
+        }).catch(() => console.log("Sharing failed or was canceled by the user."));
     } else {
-        alert("Sharing not supported on this browser.");
+        console.log("Sharing not supported on this browser.");
     }
 }
 
@@ -50,9 +50,9 @@ window.onload = () => {
     }
 };
 
-// Event listeners for emojis to generate a new quote when clicked
-document.querySelectorAll('.emoji-bar span').forEach(emoji => {
-    emoji.addEventListener('click', newQuote);
+// Event listeners for icons to generate a new quote when clicked
+document.querySelectorAll('.icon').forEach(icon => {
+    icon.addEventListener('click', newQuote);
 });
 
 // Adding event listener for the "New Quote" button
