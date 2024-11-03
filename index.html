@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iOS Style Quote Generator</title>
+    <title>Quote Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>Quote Generator</h1>
+            <h1 id="header-title">Quote Generator</h1>
         </header>
         <div class="quote-box">
             <p id="quote" class="quote-text">Click the button to generate a motivational quote!</p>
         </div>
         <div class="buttons">
-            <button class="button" onclick="generateQuote()">New Quote</button>
-            <button class="button share" onclick="shareQuote()">Share Quote</button>
+            <button class="button" onclick="generateQuote()"><span id="new-quote-btn">New Quote</span></button>
+            <button class="button share" onclick="shareQuote()"><span id="share-quote-btn">Share Quote</span></button>
+            <button id="toggle-language" class="button" style="margin-top: 15px;">عربي</button>
             <button id="darkModeToggle" class="button" style="margin-top: 15px;">Toggle Dark Mode</button>
         </div>
     </div>
-    <footer class="footer">
-        Created by Rabah Madani
-    </footer>
+    <footer class="footer" id="footer-text">Created by Rabah Madani</footer>
     <script src="script.js"></script>
 </body>
 </html>
