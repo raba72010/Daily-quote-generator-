@@ -7,8 +7,8 @@ body {
 }
 
 .dark-mode {
-    background-color: #333;
-    color: #f0f8ff;
+    background-color: #333; /* Dark background */
+    color: #f0f8ff; /* Light text color */
 }
 
 .container {
@@ -36,6 +36,12 @@ body {
     border-radius: 10px;
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.dark-mode .quote {
+    background-color: #444; /* Darker background for quote */
+    color: #ffffff; /* Light text color */
 }
 
 .button-container {
@@ -55,5 +61,9 @@ body {
 }
 
 .button:hover {
+    background-color: #0056b3;
+}
+
+.dark-mode .button {
     background-color: #0056b3;
 }
