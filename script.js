@@ -1,10 +1,10 @@
-// Function to fetch a quote from ZenQuotes API
-async function fetchQuoteFromZenQuotes(icon) {
+const QUOTE_STORAGE_KEY = 'storedQuotes';
+
+// Function to fetch a quote from ZenQuotes API and store it
+async function fetchAndStoreQuote() {
     try {
-        console.log(`Fetching a quote related to the selected category...`);
         const response = await fetch('https://zenquotes.io/api/random');
 
-        console.log(`Response Status Code: ${response.status}`);
         if (!response.ok) {
             document.getElementById('quote').innerText = `Error ${response.status}: ${response.statusText}`;
             console.error(`HTTP error! Status: ${response.status}`);
@@ -12,15 +12,18 @@ async function fetchQuoteFromZenQuotes(icon) {
         }
 
         const data = await response.json();
-        console.log('API Response Data:', data);
+        console.log('Fetched Data:', data);
 
         if (data.length > 0) {
-            const quote = data[0].q; // Quote text
-            const author = data[0].a || 'Unknown'; // Author
-            document.getElementById('quote').innerText = `${quote} – ${author}`;
-            document.getElementById('selected-icon').innerText = `Selected: ${icon}`;
+            const quote = {
+                text: data[0].q, // Quote text
+                author: data[0].a || 'Unknown' // Author
+            };
+
+            saveQuoteToLocalStorage(quote);
+            displayQuote(quote);
         } else {
-            console.warn('No data returned from ZenQuotes API.');
+            console.warn('No quotes were returned from the API.');
             document.getElementById('quote').innerText = 'No quotes available at the moment.';
         }
     } catch (error) {
@@ -29,34 +32,33 @@ async function fetchQuoteFromZenQuotes(icon) {
     }
 }
 
-// Function to render clickable icons for different categories
-function renderIcons() {
-    const iconContainer = document.getElementById('icon-container');
-    const iconCategories = {
-        'fa-smile': 'happiness',
-        'fa-star': 'inspiration',
-        'fa-heart': 'love'
-    };
+// Function to save quotes to local storage
+function saveQuoteToLocalStorage(quote) {
+    let storedQuotes = JSON.parse(localStorage.getItem(QUOTE_STORAGE_KEY)) || [];
+    storedQuotes.push(quote);
+    localStorage.setItem(QUOTE_STORAGE_KEY, JSON.stringify(storedQuotes));
+}
 
-    for (const [iconClass, category] of Object.entries(iconCategories)) {
-        const iconButton = document.createElement('button');
-        iconButton.className = `icon-button fas ${iconClass}`;
-        iconButton.addEventListener('click', () => {
-            document.querySelectorAll('.icon-button').forEach(btn => btn.classList.remove('active'));
-            iconButton.classList.add('active');
-            fetchQuoteFromZenQuotes(iconClass);
-        });
-        iconContainer.appendChild(iconButton);
+// Function to load and display a stored quote
+function displayQuote(quote) {
+    document.getElementById('quote').innerText = `${quote.text} – ${quote.author}`;
+}
+
+// Function to get and display the latest stored quote from local storage
+function loadLastStoredQuote() {
+    const storedQuotes = JSON.parse(localStorage.getItem(QUOTE_STORAGE_KEY));
+    if (storedQuotes && storedQuotes.length > 0) {
+        displayQuote(storedQuotes[storedQuotes.length - 1]);
+    } else {
+        document.getElementById('quote').innerText = 'Click the button to get your first quote!';
     }
 }
 
-// Call the function to render icons on page load
-renderIcons();
+// Load the last stored quote on page load
+document.addEventListener('DOMContentLoaded', loadLastStoredQuote);
 
-// Event listener for the "New Quote" button to fetch a new random quote
-document.getElementById('new-quote-btn').addEventListener('click', () => {
-    fetchQuoteFromZenQuotes('New Quote');
-});
+// Event listener for fetching a new quote
+document.getElementById('new-quote-btn').addEventListener('click', fetchAndStoreQuote);
 
 // Function to toggle dark mode
 function toggleDarkMode() {
