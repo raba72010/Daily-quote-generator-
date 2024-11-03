@@ -4,7 +4,7 @@
 body {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-    color: #6c757d;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,10 +29,11 @@ body {
 
 /* Header Styling */
 h1 {
-    font-size: 26px;
-    font-weight: 600;
-    color: #333;
+    font-size: 28px; /* Slightly larger for better emphasis */
+    font-weight: 700; /* Bolder for clearer visibility */
+    color: #333; /* Dark color for light mode */
     margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 /* Quote Box Styling */
@@ -84,27 +85,32 @@ footer {
 
 /* Dark Mode Styling */
 .dark-mode {
-    background: linear-gradient(135deg, #121212, #1d1d1d); /* Deep, contrasting dark mode background */
+    background: linear-gradient(135deg, #121212, #1d1d1d);
     color: #f5f5f5;
 }
 
 .dark-mode .container {
-    background: rgba(30, 30, 30, 0.95); /* Darker container for contrast */
+    background: rgba(30, 30, 30, 0.95);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
 }
 
+.dark-mode h1 {
+    color: #ffffff; /* Bright white for contrast in dark mode */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* More pronounced shadow */
+}
+
 .dark-mode #quote-box {
-    background-color: rgba(40, 40, 40, 0.95); /* High contrast for the quote container */
+    background-color: rgba(40, 40, 40, 0.95);
     color: #e0e0e0;
 }
 
 .dark-mode #quote {
-    color: #dcdcdc; /* Lighter color for readability */
+    color: #dcdcdc;
 }
 
 .dark-mode button {
-    background-color: #5e5ce6; /* High-contrast button color */
-    color: #f0f0f0; /* Light text for dark button */
+    background-color: #5e5ce6;
+    color: #f0f0f0;
 }
 
 .dark-mode button:hover {
@@ -112,5 +118,5 @@ footer {
 }
 
 .dark-mode footer {
-    color: #a1a1a1; /* Light footer text */
+    color: #a1a1a1;
 }
