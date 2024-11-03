@@ -1,13 +1,13 @@
-// Function to fetch a new quote
+// Function to fetch a new quote using the Quotable API
 async function newQuote() {
     try {
-        const response = await fetch('https://zenquotes.io/api/random');
+        const response = await fetch('https://api.quotable.io/random');
         if (!response.ok) {
             throw new Error('Failed to fetch a new quote');
         }
 
         const data = await response.json();
-        document.getElementById('quote').innerText = data[0].q + " – " + data[0].a;
+        document.getElementById('quote').innerText = `"${data.content}" – ${data.author}`;
     } catch (error) {
         console.error('Error fetching new quote:', error);
         document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
@@ -43,4 +43,4 @@ window.onload = () => {
     if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
     }
-}; 
+};
