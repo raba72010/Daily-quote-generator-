@@ -1,7 +1,7 @@
 // Function to fetch a quote from ZenQuotes API
-async function fetchQuoteFromZenQuotes(emoji) {
+async function fetchQuoteFromZenQuotes(icon) {
     try {
-        console.log(`Fetching quote related to the selected category...`);
+        console.log(`Fetching a quote related to the selected category...`);
         const response = await fetch('https://zenquotes.io/api/random');
 
         console.log(`Response Status Code: ${response.status}`);
@@ -18,7 +18,7 @@ async function fetchQuoteFromZenQuotes(emoji) {
             const quote = data[0].q; // Quote text
             const author = data[0].a || 'Unknown'; // Author
             document.getElementById('quote').innerText = `${quote} – ${author}`;
-            document.getElementById('selected-emoji').innerText = `Selected: ${emoji}`;
+            document.getElementById('selected-icon').innerText = `Selected: ${icon}`;
         } else {
             console.warn('No data returned from ZenQuotes API.');
             document.getElementById('quote').innerText = 'No quotes available at the moment.';
@@ -29,30 +29,29 @@ async function fetchQuoteFromZenQuotes(emoji) {
     }
 }
 
-// Function to render emojis and set up event listeners for quote fetching
-function renderEmojis() {
-    const emojiContainer = document.getElementById('emoji-container');
-    const emojiCategories = {
-        '😊': 'general',
-        '✨': 'inspirational',
-        '❤️': 'love'
+// Function to render clickable icons for different categories
+function renderIcons() {
+    const iconContainer = document.getElementById('icon-container');
+    const iconCategories = {
+        'fa-smile': 'happiness',
+        'fa-star': 'inspiration',
+        'fa-heart': 'love'
     };
 
-    for (const [emoji, category] of Object.entries(emojiCategories)) {
-        const emojiButton = document.createElement('button');
-        emojiButton.className = 'emoji-button';
-        emojiButton.innerText = emoji;
-        emojiButton.addEventListener('click', () => {
-            document.querySelectorAll('.emoji-button').forEach(btn => btn.classList.remove('active'));
-            emojiButton.classList.add('active');
-            fetchQuoteFromZenQuotes(emoji);
+    for (const [iconClass, category] of Object.entries(iconCategories)) {
+        const iconButton = document.createElement('button');
+        iconButton.className = `icon-button fas ${iconClass}`;
+        iconButton.addEventListener('click', () => {
+            document.querySelectorAll('.icon-button').forEach(btn => btn.classList.remove('active'));
+            iconButton.classList.add('active');
+            fetchQuoteFromZenQuotes(iconClass);
         });
-        emojiContainer.appendChild(emojiButton);
+        iconContainer.appendChild(iconButton);
     }
 }
 
-// Call the function to render emojis on page load
-renderEmojis();
+// Call the function to render icons on page load
+renderIcons();
 
 // Event listener for the "New Quote" button to fetch a new random quote
 document.getElementById('new-quote-btn').addEventListener('click', () => {
