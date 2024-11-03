@@ -1,3 +1,19 @@
+// Function to fetch a new quote from the Ninja API or other sources
+async function newQuote() {
+    try {
+        const response = await fetch('https://zenquotes.io/api/random');
+        if (!response.ok) {
+            throw new Error('Failed to fetch a new quote');
+        }
+
+        const data = await response.json();
+        document.getElementById('quote').innerText = data[0].q + " – " + data[0].a;
+    } catch (error) {
+        console.error('Error fetching new quote:', error);
+        document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
+    }
+}
+
 // Function to fetch a quote by keyword
 async function fetchQuoteByKeyword(keyword) {
     try {
@@ -11,29 +27,6 @@ async function fetchQuoteByKeyword(keyword) {
     } catch (error) {
         console.error('Error fetching quote by keyword:', error);
         document.getElementById('quote').innerText = 'Failed to fetch a quote. Please try again later.';
-    }
-}
-
-// Other existing functions like newQuote, shareQuote, toggleDarkMode, etc.
-
-// Function to fetch a new quote from the Ninja API
-async function newQuote() {
-    try {
-        const response = await fetch('https://api.api-ninjas.com/v1/quotes', {
-            headers: {
-                'X-Api-Key': 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch the quote');
-        }
-
-        const data = await response.json();
-        document.getElementById('quote').innerText = data[0].quote + " – " + data[0].author;
-    } catch (error) {
-        console.error('Error fetching quote:', error);
-        document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
     }
 }
 
@@ -67,6 +60,3 @@ window.onload = () => {
         document.body.classList.add('dark-mode');
     }
 };
-
-// Adding event listener for the "New Quote" button
-document.querySelector('button[onclick="newQuote()"]').addEventListener('click', () => newQuote("general"));
