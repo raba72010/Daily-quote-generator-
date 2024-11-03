@@ -7,8 +7,8 @@ body {
 }
 
 .dark-mode {
-    background-color: #333; /* Dark background */
-    color: #f0f8ff; /* Light text color */
+    background-color: #333;
+    color: #f0f8ff;
 }
 
 .container {
@@ -27,6 +27,17 @@ body {
     cursor: pointer;
     background: none;
     border: none;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.emoji-button:hover {
+    transform: scale(1.2);
+}
+
+.emoji-button.active {
+    background-color: #d1e7ff;
+    border-radius: 50%;
+    padding: 5px;
 }
 
 .quote {
@@ -40,8 +51,8 @@ body {
 }
 
 .dark-mode .quote {
-    background-color: #444; /* Darker background for quote */
-    color: #ffffff; /* Light text color */
+    background-color: #444;
+    color: #ffffff;
 }
 
 .button-container {
@@ -66,4 +77,9 @@ body {
 
 .dark-mode .button {
     background-color: #0056b3;
+}
+
+#selected-emoji {
+    font-style: italic;
+    margin-top: 10px;
 }
