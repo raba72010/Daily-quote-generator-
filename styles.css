@@ -17,27 +17,27 @@ body {
     max-width: 600px;
 }
 
-.emoji-container {
+.icon-container {
     margin: 20px 0;
 }
 
-.emoji-button {
+.icon-button {
     font-size: 2rem;
-    margin: 5px;
+    margin: 10px;
     cursor: pointer;
     background: none;
     border: none;
-    transition: transform 0.2s, background-color 0.2s;
+    color: #333;
+    transition: transform 0.2s, color 0.3s;
 }
 
-.emoji-button:hover {
+.icon-button:hover {
     transform: scale(1.2);
+    color: #007bff;
 }
 
-.emoji-button.active {
-    background-color: #d1e7ff;
-    border-radius: 50%;
-    padding: 5px;
+.icon-button.active {
+    color: #0056b3;
 }
 
 .quote {
@@ -79,7 +79,7 @@ body {
     background-color: #0056b3;
 }
 
-#selected-emoji {
+#selected-icon {
     font-style: italic;
     margin-top: 10px;
 }
