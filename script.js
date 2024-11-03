@@ -10,17 +10,23 @@ async function fetchQuoteByCategory(keyword) {
                 'X-Api-Key': API_NINJAS_KEY
             }
         });
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('Quote fetched:', data);
         
+        // Check if the response is ok
+        if (!response.ok) {
+            console.error(`HTTP error! Status: ${response.status}`);
+            document.getElementById('quote').innerText = `Error ${response.status}: ${response.statusText}`;
+            return;
+        }
+
+        const data = await response.json();
+        console.log('API response:', data);
+
         if (data.length > 0) {
             const quote = data[0].quote;
             const author = data[0].author || 'Unknown';
             document.getElementById('quote').innerText = `${quote} – ${author}`;
         } else {
+            console.warn('No quotes returned for this category.');
             document.getElementById('quote').innerText = 'No quotes available for this category.';
         }
     } catch (error) {
@@ -33,7 +39,7 @@ async function fetchQuoteByCategory(keyword) {
 function renderEmojis() {
     const emojiContainer = document.getElementById('emoji-container');
     const emojiCategories = {
-        '💪': 'hope',
+        '💪': 'courage', // Example: Using a known working category
         '😊': 'happiness',
         '✨': 'hope',
         '❤️': 'love'
@@ -56,34 +62,4 @@ renderEmojis();
 // Event listener for the "New Quote" button to fetch a default quote
 document.getElementById('new-quote-btn').addEventListener('click', () => {
     fetchQuoteByCategory('inspirational');
-});
-
-// Function to toggle dark mode
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    console.log('Dark mode toggled');
-}
-
-// Attach event listener for dark mode button
-document.getElementById('darkModeToggle').addEventListener('click', () => {
-    console.log('Dark Mode button clicked');
-    toggleDarkMode();
-});
-
-// Share quote functionality
-document.getElementById('share-quote-btn').addEventListener('click', () => {
-    const quoteElement = document.getElementById('quote').innerText;
-    if (navigator.share) {
-        navigator.share({
-            title: 'Motivational Quote',
-            text: quoteElement,
-            url: window.location.href
-        }).then(() => {
-            console.log('Quote shared successfully');
-        }).catch((error) => {
-            console.error('Error sharing the quote:', error);
-        });
-    } else {
-        alert('Sharing is not supported on this browser.');
-    }
 });
