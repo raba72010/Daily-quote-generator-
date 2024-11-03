@@ -16,6 +16,12 @@ function generateQuote() {
         quoteElement.style.opacity = 1;
     }, 300);
 }
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
+
+// Add this to an event listener if you want a button for toggling
+document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
 
 function shareQuote() {
     const quoteText = document.getElementById('quote').innerText;
