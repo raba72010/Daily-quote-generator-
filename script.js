@@ -1,8 +1,8 @@
 const API_NINJAS_URL = 'https://api.api-ninjas.com/v1/quotes';
-const API_NINJAS_KEY = 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'; // Your API key
+const API_NINJAS_KEY = 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'; // Replace with your valid API key
 
 // Function to fetch quotes by keyword for a specific category
-async function fetchQuoteByCategory(keyword) {
+async function fetchQuoteByCategory(keyword, emoji) {
     try {
         console.log(`Fetching quotes related to "${keyword}"...`);
         const response = await fetch(`${API_NINJAS_URL}?category=${encodeURIComponent(keyword)}`, {
@@ -10,11 +10,12 @@ async function fetchQuoteByCategory(keyword) {
                 'X-Api-Key': API_NINJAS_KEY
             }
         });
-        
-        // Check if the response is ok
+
+        // Check the status code and response details
+        console.log('Response Status:', response.status);
         if (!response.ok) {
-            console.error(`HTTP error! Status: ${response.status}`);
             document.getElementById('quote').innerText = `Error ${response.status}: ${response.statusText}`;
+            console.error(`HTTP error! Status: ${response.status}`);
             return;
         }
 
@@ -25,13 +26,14 @@ async function fetchQuoteByCategory(keyword) {
             const quote = data[0].quote;
             const author = data[0].author || 'Unknown';
             document.getElementById('quote').innerText = `${quote} – ${author}`;
+            document.getElementById('selected-emoji').innerText = `Selected: ${emoji}`;
         } else {
             console.warn('No quotes returned for this category.');
             document.getElementById('quote').innerText = 'No quotes available for this category.';
         }
     } catch (error) {
         console.error(`Error fetching quotes for category "${keyword}":`, error);
-        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please try again later.';
+        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please check your internet connection and try again later.';
     }
 }
 
@@ -49,7 +51,10 @@ function renderEmojis() {
         emojiButton.className = 'emoji-button';
         emojiButton.innerText = emoji;
         emojiButton.addEventListener('click', () => {
-            fetchQuoteByCategory(keyword);
+            // Add visual feedback to show which emoji was clicked
+            document.querySelectorAll('.emoji-button').forEach(btn => btn.classList.remove('active'));
+            emojiButton.classList.add('active');
+            fetchQuoteByCategory(keyword, emoji);
         });
         emojiContainer.appendChild(emojiButton);
     }
@@ -60,7 +65,7 @@ renderEmojis();
 
 // Event listener for the "New Quote" button to fetch a default quote
 document.getElementById('new-quote-btn').addEventListener('click', () => {
-    fetchQuoteByCategory('inspirational');
+    fetchQuoteByCategory('inspirational', 'New Quote');
 });
 
 // Function to toggle dark mode
