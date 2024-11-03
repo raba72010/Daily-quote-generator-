@@ -1,3 +1,4 @@
+// List of English and Arabic quotes
 const quotes = [
     "The best way to predict the future is to invent it. – Alan Kay",
     "Do what you can, with what you have, where you are. – Theodore Roosevelt",
@@ -14,24 +15,38 @@ const arabicQuotes = [
     "اجعل وجهك دائمًا باتجاه الشمس، وستقع الظلال خلفك. – والت ويتمان"
 ];
 
+// Function to generate a new quote
 function generateQuote() {
     const isArabic = document.body.classList.contains('rtl');
     const randomIndex = Math.floor(Math.random() * (isArabic ? arabicQuotes.length : quotes.length));
     const quoteElement = document.getElementById('quote');
     const selectedQuote = isArabic ? arabicQuotes[randomIndex] : quotes[randomIndex];
-    
-    quoteElement.style.opacity = 0;
+
+    quoteElement.style.opacity = 0; // Fade out
 
     setTimeout(() => {
         quoteElement.innerText = selectedQuote;
-        quoteElement.style.opacity = 1;
+        quoteElement.style.opacity = 1; // Fade in
     }, 300);
 }
 
-document.getElementById('toggle-language').addEventListener('click', () => {
+// Function to toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
+
+// Function to toggle between English and Arabic
+function toggleLanguage() {
     document.body.classList.toggle('rtl');
     const isArabic = document.body.classList.contains('rtl');
 
     document.getElementById('header-title').innerText = isArabic ? "مولد الاقتباسات" : "Quote Generator";
     document.getElementById('new-quote-btn').innerText = isArabic ? "اقتباس جديد" : "New Quote";
-    document.getElementById('share-quote-btn').
+    document.getElementById('share-quote-btn').innerText = isArabic ? "مشاركة الاقتباس" : "Share Quote";
+    document.getElementById('toggle-language').innerText = isArabic ? "English" : "عربي";
+    document.getElementById('footer-text').innerText = isArabic ? "صنع بواسطة رباح مداني" : "Created by Rabah Madani";
+}
+
+// Attach event listeners to buttons
+document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+document.getElementById('toggle-language').addEventListener('click', toggleLanguage);
