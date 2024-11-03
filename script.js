@@ -1,14 +1,13 @@
-// API key for the API Ninjas Quotes API
-const API_NINJAS_URL = 'https://api.api-ninjas.com/v1/quotes?category=inspirational';
-const API_NINJAS_KEY = 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'; // Your provided API key
+const API_NINJAS_URL = 'https://api.api-ninjas.com/v1/quotes';
+const API_NINJAS_KEY = 'qNTM4mVdrBxgl03u5uc+4g==pc2B41oPw2e19NB8'; // Your API key
 
-// Function to fetch a random quote from the API Ninjas Quotes API
-async function fetchQuote() {
+// Function to fetch quotes by keyword for a specific category
+async function fetchQuoteByCategory(keyword) {
     try {
-        console.log('Fetching new quote from API Ninjas...');
-        const response = await fetch(API_NINJAS_URL, {
+        console.log(`Fetching quotes related to "${keyword}"...`);
+        const response = await fetch(`${API_NINJAS_URL}?category=${encodeURIComponent(keyword)}`, {
             headers: {
-                'X-Api-Key': API_NINJAS_KEY // Include your API key here
+                'X-Api-Key': API_NINJAS_KEY
             }
         });
         if (!response.ok) {
@@ -16,94 +15,43 @@ async function fetchQuote() {
         }
         const data = await response.json();
         console.log('Quote fetched:', data);
-        const quote = data[0].quote;
-        const author = data[0].author || 'Unknown';
-        document.getElementById('quote').innerText = `${quote} – ${author}`;
-        addEmojiToQuote(quote); // Add emojis to the quote
-    } catch (error) {
-        console.error('Error fetching quote from API Ninjas:', error);
-        document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
-        // Fallback to the backup API
-        fetchQuoteBackup();
-    }
-}
-
-// Function to add emojis based on keywords in the quote
-function addEmojiToQuote(quote) {
-    let emoji = '';
-    if (quote.includes('hope') || quote.includes('dream')) {
-        emoji = '✨';
-    } else if (quote.includes('success') || quote.includes('win')) {
-        emoji = '🏆';
-    } else if (quote.includes('life') || quote.includes('journey')) {
-        emoji = '🌱';
-    } else if (quote.includes('love') || quote.includes('heart')) {
-        emoji = '❤️';
-    } else if (quote.includes('strength') || quote.includes('courage')) {
-        emoji = '💪';
-    } else if (quote.includes('happy') || quote.includes('smile')) {
-        emoji = '😊';
-    } else {
-        emoji = '💡'; // Default emoji for general inspiration
-    }
-
-    // Display the quote with the emoji
-    document.getElementById('quote').innerText += ` ${emoji}`;
-}
-
-// Alternative function to fetch quotes from a backup API
-async function fetchQuoteBackup() {
-    try {
-        console.log('Fetching new quote from backup API (ZenQuotes)...');
-        const response = await fetch('https://zenquotes.io/api/random');
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        
+        if (data.length > 0) {
+            const quote = data[0].quote;
+            const author = data[0].author || 'Unknown';
+            document.getElementById('quote').innerText = `${quote} – ${author}`;
+        } else {
+            document.getElementById('quote').innerText = 'No quotes available for this category.';
         }
-        const data = await response.json();
-        const quote = data[0].q;
-        const author = data[0].a;
-        console.log('Backup quote fetched:', data);
-        document.getElementById('quote').innerText = `${quote} – ${author}`;
-        addEmojiToQuote(quote); // Add emojis to the backup quote
     } catch (error) {
-        console.error('Error fetching quote from backup API:', error);
-        document.getElementById('quote').innerText = 'Failed to fetch a new quote from backup source. Please try again later.';
+        console.error(`Error fetching quotes for category "${keyword}":`, error);
+        document.getElementById('quote').innerText = 'Failed to fetch a quote. Please try again later.';
     }
 }
 
-// Event handler for the "New Quote" button
-document.getElementById('new-quote-btn').addEventListener('click', async () => {
-    console.log('New Quote button clicked');
-    await fetchQuote();
-});
+// Function to render clickable emojis for different categories
+function renderEmojis() {
+    const emojiContainer = document.getElementById('emoji-container');
+    const emojiCategories = {
+        '💪': 'strength',
+        '😊': 'happiness',
+        '✨': 'hope',
+        '❤️': 'love'
+    };
 
-// Function to share the current quote
-function shareQuote() {
-    const quoteElement = document.getElementById('quote');
-    const quoteText = quoteElement.innerText;
-
-    if (quoteText === "Click the button to generate a motivational quote!") {
-        alert("Please generate a quote before sharing.");
-        return;
-    }
-
-    // Share API for modern browsers
-    if (navigator.share) {
-        navigator.share({
-            title: 'Motivational Quote',
-            text: quoteText,
-            url: window.location.href
-        }).then(() => {
-            console.log('Quote shared successfully');
-        }).catch((error) => {
-            console.error('Error sharing the quote:', error);
+    for (const [emoji, keyword] of Object.entries(emojiCategories)) {
+        const emojiButton = document.createElement('button');
+        emojiButton.className = 'emoji-button';
+        emojiButton.innerText = emoji;
+        emojiButton.addEventListener('click', () => {
+            fetchQuoteByCategory(keyword);
         });
-    } else {
-        // Fallback for browsers without the Share API
-        const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quoteText)}`;
-        window.open(shareUrl, '_blank');
+        emojiContainer.appendChild(emojiButton);
     }
 }
+
+// Call this function to render emojis on page load
+renderEmojis();
 
 // Function to toggle dark mode
 function toggleDarkMode() {
@@ -111,13 +59,26 @@ function toggleDarkMode() {
     console.log('Dark mode toggled');
 }
 
-// Attach event listeners to other buttons
-document.getElementById('share-quote-btn').addEventListener('click', () => {
-    console.log('Share Quote button clicked');
-    shareQuote();
-});
-
+// Attach event listener for dark mode button
 document.getElementById('darkModeToggle').addEventListener('click', () => {
     console.log('Dark Mode button clicked');
     toggleDarkMode();
+});
+
+// Share quote functionality
+document.getElementById('share-quote-btn').addEventListener('click', () => {
+    const quoteElement = document.getElementById('quote').innerText;
+    if (navigator.share) {
+        navigator.share({
+            title: 'Motivational Quote',
+            text: quoteElement,
+            url: window.location.href
+        }).then(() => {
+            console.log('Quote shared successfully');
+        }).catch((error) => {
+            console.error('Error sharing the quote:', error);
+        });
+    } else {
+        alert('Sharing is not supported on this browser.');
+    }
 });
