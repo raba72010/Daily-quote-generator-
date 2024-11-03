@@ -4,7 +4,7 @@
 body {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-    color: #333;
+    color: #6c757d;
     display: flex;
     justify-content: center;
     align-items: center;
