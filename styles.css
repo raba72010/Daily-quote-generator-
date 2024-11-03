@@ -1,7 +1,9 @@
-/* Light mode (default) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Body Styling */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #80deea);
     color: #333;
     display: flex;
     justify-content: center;
@@ -11,71 +13,90 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Container Styling */
 .container {
     text-align: center;
-    width: 80%;
+    width: 90%;
     max-width: 600px;
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s;
 }
 
-#quote-box {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 15px;
+/* Emoji Bar */
+.emoji-bar {
+    font-size: 30px;
     margin-bottom: 20px;
-    transition: background-color 0.3s;
+}
+
+/* Quote Box Styling */
+#quote-box {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 #quote {
-    font-size: 18px;
+    font-size: 20px;
     font-style: italic;
+    line-height: 1.6;
+    color: #555;
 }
 
+/* Button Styling */
 .buttons button {
-    margin: 5px;
-    padding: 10px 20px;
+    margin: 8px;
+    padding: 12px 25px;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    transition: background-color 0.3s, color 0.3s;
+    background-color: #00acc1;
+    color: #ffffff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .buttons button:hover {
-    background-color: #0056b3;
+    background-color: #00838f;
+    transform: translateY(-3px);
 }
 
-/* Dark mode */
+.buttons button:active {
+    transform: translateY(1px);
+}
+
+/* Dark Mode Styling */
 .dark-mode {
-    background-color: #333;
-    color: #f0f8ff;
+    background-color: #263238;
+    color: #eceff1;
 }
 
 .dark-mode .container {
-    background-color: #444;
+    background-color: #37474f;
+    color: #eceff1;
 }
 
 .dark-mode #quote-box {
-    background-color: #555;
+    background-color: #455a64;
+    color: #eceff1;
 }
 
 .dark-mode button {
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #607d8b;
+    color: #ffffff;
 }
 
 .dark-mode button:hover {
-    background-color: #ccc;
+    background-color: #455a64;
 }
 
 footer {
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 14px;
-    color: #999;
+    color: #757575;
 }
