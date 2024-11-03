@@ -1,27 +1,16 @@
 // Function to fetch a new quote
 async function newQuote() {
     try {
-        // Check network connectivity
-        if (!navigator.onLine) {
-            throw new Error('No internet connection. Please check your network and try again.');
-        }
-
         const response = await fetch('https://zenquotes.io/api/random');
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error('Failed to fetch a new quote');
         }
 
         const data = await response.json();
-        const quoteText = data[0].q + " – " + data[0].a;
-        document.getElementById('quote').innerText = quoteText;
-        document.getElementById('quote-box').classList.add('fade-in');
-        setTimeout(() => {
-            document.getElementById('quote-box').classList.remove('fade-in');
-        }, 1000);
+        document.getElementById('quote').innerText = data[0].q + " – " + data[0].a;
     } catch (error) {
         console.error('Error fetching new quote:', error);
-        document.getElementById('quote').innerText = `Failed to fetch a new quote. ${error.message}`;
-        alert(`Error: ${error.message}`);
+        document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
     }
 }
 
@@ -32,30 +21,16 @@ function shareQuote() {
         navigator.share({
             title: 'Inspirational Quote',
             text: quote,
-        }).catch((err) => {
-            console.error('Sharing failed:', err);
-            alert('Sharing failed. Please try again.');
-        });
+        }).catch(() => console.log("Sharing failed or was canceled by the user."));
     } else {
-        console.log('Sharing not supported on this browser.');
-        alert('Sharing not supported on this browser.');
+        console.log("Sharing not supported on this browser.");
     }
-}
-
-// Function to copy the current quote to the clipboard
-function copyQuote() {
-    const quote = document.getElementById('quote').innerText;
-    navigator.clipboard.writeText(quote).then(() => {
-        alert('Quote copied to clipboard!');
-    }).catch((err) => {
-        console.error('Failed to copy text:', err);
-        alert('Failed to copy the quote. Please try again.');
-    });
 }
 
 // Function to toggle dark mode
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
+    // Save dark mode preference in local storage
     if (document.body.classList.contains('dark-mode')) {
         localStorage.setItem('darkMode', 'enabled');
     } else {
@@ -63,7 +38,7 @@ function toggleDarkMode() {
     }
 }
 
-// Check local storage for dark mode preference on page load
+// Check local storage for dark mode preference
 window.onload = () => {
     if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
