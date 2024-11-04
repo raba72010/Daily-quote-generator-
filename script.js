@@ -1,13 +1,33 @@
-// Function to fetch a new quote using the Quotable API
+// List of quote sources
+const quoteSources = [
+    'https://api.quotable.io/random', // Quotable API
+    'https://api.zenquotes.io/api/random', // Zen Quotes API
+    'https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en', // Forismatic API
+];
+
+// Function to fetch a new quote from a random source
 async function newQuote() {
     try {
-        const response = await fetch('https://api.quotable.io/random');
+        // Select a random source
+        const randomSource = quoteSources[Math.floor(Math.random() * quoteSources.length)];
+        const response = await fetch(randomSource);
+
         if (!response.ok) {
             throw new Error('Failed to fetch a new quote');
         }
 
-        const data = await response.json();
-        document.getElementById('quote').innerText = `"${data.content}" – ${data.author}`;
+        // Handle different responses based on the API
+        let data;
+        if (randomSource.includes('quotable')) {
+            data = await response.json();
+            document.getElementById('quote').innerText = `"${data.content}" – ${data.author}`;
+        } else if (randomSource.includes('zenquotes')) {
+            data = await response.json();
+            document.getElementById('quote').innerText = `"${data[0].q}" – ${data[0].a}`;
+        } else if (randomSource.includes('forismatic')) {
+            data = await response.json();
+            document.getElementById('quote').innerText = `"${data.quoteText}" – ${data.quoteAuthor}`;
+        }
     } catch (error) {
         console.error('Error fetching new quote:', error);
         document.getElementById('quote').innerText = 'Failed to fetch a new quote. Please try again later.';
